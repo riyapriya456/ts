@@ -13,7 +13,9 @@ Commands:
 
 Bot Usage:
 
-Send any 1tamilmv.com or tamilblasters.com link to scrap torrents
+Send any 1tamilmv or tamilblasters link to scrap torrents
+
+🔰 Powered by @Logeshbots
 '''
 
 @Client.on_message(filters.command('start'))
