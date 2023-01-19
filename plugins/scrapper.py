@@ -11,14 +11,14 @@ from plugins.messages import caption
 
 
 options = webdriver.ChromeOptions()
-options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+options.binary_location = os.environ.get("GOOGLE_CHROME_BIN", '/usr/bin/google-chrome-stable')
 options.add_argument("--headless")
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-gpu")
 options.add_argument("--disable-infobars")
 
-driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=options)
+driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH", '/usr/local/bin/chromedriver'), chrome_options=options)
 driver.maximize_window()
 torrent = []
 
@@ -42,17 +42,17 @@ async def link_regex(c,m):
             text = link.text
             msg += f"**Name : {text}**\n**Link:** {tor}\n\n-\n\n"
         if msg == "":
-            await m.send_message(-1001549256479, "No Torrents Found")
+            await m.send_message(-1001847917098, "No Torrents Found")
             await m.message.delete()
         elif msg != "":
             reply_text = f"{msg}"
-            await c.send_photo(-1001549256479, p, caption=heading)
-            await c.send_message(-1001549256479, reply_text)
+            await c.send_photo(-1001847917098, p, caption=heading)
+            await c.send_message(-1001847917098, reply_text)
             await txt.delete()
 
     except Exception as e:
         print(e)
-        await c.send_message(-1001549256479, 'Some error occurred')
+        await c.send_message(-1001847917098, 'Some error occurred')
         await txt.delete()
 
 
