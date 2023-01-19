@@ -66,7 +66,7 @@ async def listmv(c, m):
     if querys == "":
         await m.reply(f'`/listmv [query]`', quote=True)
     elif querys != "":
-        link = f"https://www.1tamilmv.com/index.php?/search/&q={querys}&search_and_or=and&search_in=titles&sortby=relevancy"
+        link = f"https://www.1tamilmv.autos/index.php?/search/&q={querys}&search_and_or=and&search_in=titles&sortby=relevancy"
         txt = await m.reply_text(f"Searching for: {querys} 🔍")
         driver.get(link)
         await asyncio.sleep(5)
@@ -101,7 +101,7 @@ async def lists(c, m):
     if querys == "":
         await m.reply(f'`/listbl [query]`', quote=True)
     elif querys != "":
-        link = f"https://www.tamilblasters.com/index.php?/search/&q={querys}&search_and_or=and&search_in=titles&sortby=relevancy"
+        link = f"https://www.tamilblasters.kim/index.php?/search/&q={querys}&search_and_or=and&search_in=titles&sortby=relevancy"
         txt = await m.reply_text(f"Searching for: {querys} 🔍")
         driver.get(link)
         await asyncio.sleep(5)
@@ -129,11 +129,11 @@ async def lists(c, m):
 @Client.on_message(filters.command('latest'))
 async def ss(bot, message):
     # Getting ss of tamilmv
-    txt = await bot.send_message(message.chat.id, "Getting screenshot of latest movies of 1TamilMv.com")
+    txt = await bot.send_message(message.chat.id, "Getting screenshot of latest movies of 1TamilMv.autos")
     N = 7
     name = ''.join(random.choices(string.ascii_uppercase +
                                   string.digits, k=N))
-    driver.get("https://www.1tamilmv.com/")
+    driver.get("https://www.1tamilmv.autos/")
     photo = name + ".png"
     driver.save_screenshot(photo)
 
@@ -141,15 +141,15 @@ async def ss(bot, message):
     N = 7
     name = ''.join(random.choices(string.ascii_uppercase +
                                   string.digits, k=N))
-    driver.get("https://www.tamilblasters.com/")
-    await txt.edit(text="Got Screenshot of 1TamilMv.com. Now Getting screenshot of latest movies of TamilBlasters.com")
+    driver.get("https://www.tamilblasters.kim/")
+    await txt.edit(text="Got Screenshot of 1TamilMv.autos. Now Getting screenshot of latest movies of TamilBlasters.kim")
     photo1 = name + ".png"
     driver.save_screenshot(photo1)
     await txt.delete()
 
     # sending captured ss to user
-    await message.reply_photo(photo, quote=True, caption="**Screenshot of latest movies of 1TamilMV.com**")
-    await message.reply_photo(photo1, quote=True, caption="**Screenshot of latest movies of TamilBlasters.com**")
+    await message.reply_photo(photo, quote=True, caption="**Screenshot of latest movies of 1TamilMV.autos**")
+    await message.reply_photo(photo1, quote=True, caption="**Screenshot of latest movies of TamilBlasters.kim**")
 
     # deleting captured from db
     os.remove(photo)
