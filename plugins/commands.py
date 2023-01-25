@@ -3,12 +3,6 @@ from pyrogram import Client, filters
 txt = '''
 Commands:
 
-/listmv [query] - to search movies in TamilMV
-
-/listbl [query] - to search movies in Tamilblasters
-
-/post [tamilmv link] - makes a post of a given link
-
 /latest - to get screenshot of latest movies in TamilMV and Tamilblasters
 
 Bot Usage:
