@@ -56,76 +56,6 @@ async def link_regex(c,m):
         await txt.delete()
 
 
-@Client.on_message(filters.command('listmv'))
-async def listmv(c, m):
-    querys = ""
-    texts = ""
-    length = len(m.command)
-    for queryss in m.command[1:length]:
-        querys += f"{queryss} "
-    if querys == "":
-        await m.reply(f'`/listmv [query]`', quote=True)
-    elif querys != "":
-        link = f"https://www.1tamilmv.mobi/index.php?/search/&q={querys}&search_and_or=and&search_in=titles&sortby=relevancy"
-        txt = await m.reply_text(f"Searching for: {querys} 🔍")
-        driver.get(link)
-        await asyncio.sleep(5)
-        title = driver.title
-        links = driver.find_elements(By.CLASS_NAME, "ipsStreamItem_title")
-        msg = []
-        count = 0
-
-        for link in links:
-            text = link.text
-            url0 = link.find_element(By.CLASS_NAME, 'ipsType_break')
-            url1 = url0.find_element(By.TAG_NAME, 'a').get_attribute("href")
-            print(url1)
-            count += 1
-            msgs = f"{count}. <a href='{url1}'>{text}</a>\n\n"
-            msg.append(msgs)
-
-        for text in msg[0:20]:
-            texts += text
-        reply = f"<b>{title}</b>\n\n{texts}"
-        await c.send_message(m.chat.id, reply, disable_web_page_preview=True, parse_mode="html")
-        await txt.delete()
-
-
-@Client.on_message(filters.command('listbl'))
-async def lists(c, m):
-    querys = ""
-    texts = ""
-    length = len(m.command)
-    for queryss in m.command[1:length]:
-        querys += f"{queryss} "
-    if querys == "":
-        await m.reply(f'`/listbl [query]`', quote=True)
-    elif querys != "":
-        link = f"https://www.tamilblasters.guru/index.php?/search/&q={querys}&search_and_or=and&search_in=titles&sortby=relevancy"
-        txt = await m.reply_text(f"Searching for: {querys} 🔍")
-        driver.get(link)
-        await asyncio.sleep(5)
-        title = driver.title
-        links = driver.find_elements(By.TAG_NAME, "h2")
-        msg = []
-        count = 0
-        try:
-            for link in links:
-                text = link.text
-                url = driver.find_element(By.LINK_TEXT, text).get_attribute("href")
-                count += 1
-                msgs = f"{count}. [{text}]({url})\n\n"
-                msg.append(msgs)
-        except NoSuchElementException:
-            pass
-
-        for text in msg[0:20]:
-            texts += text
-        reply = f"**{title}**\n\n{texts}"
-        await c.send_message(m.chat.id, reply, disable_web_page_preview=True)
-        await txt.delete()
-
-
 @Client.on_message(filters.command('latest'))
 async def ss(bot, message):
     # Getting ss of tamilmv
@@ -182,4 +112,4 @@ async def post(bot, message):
         await txt.delete()
 
     except Exception as e:
-        await txt.edit_text("Some Error Occurred, Try Again")
+        await txt.edit_text("Some Error Occurred, Try Again") 
