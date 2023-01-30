@@ -63,7 +63,7 @@ async def ss(bot, message):
     N = 7
     name = ''.join(random.choices(string.ascii_uppercase +
                                   string.digits, k=N))
-    driver.get("https://www.1tamilmv.mobi/")
+    driver.get("https://www.1tamilmv.bond/")
     photo = name + ".png"
     driver.save_screenshot(photo)
 
@@ -84,32 +84,3 @@ async def ss(bot, message):
     # deleting captured from db
     os.remove(photo)
     os.remove(photo1)
-
-
-# channel post
-@Client.on_message(filters.command('post'))
-async def post(bot, message):
-    try:
-        try:
-            reply_messages = message.reply_to_message.text
-            link = reply_messages
-        except AttributeError:
-            pass
-        try:
-            link = str(message.command[1])
-        except IndexError:
-            await message.reply(f'`/post [movie_url]`', quote=True)
-        txt = await message.reply_text("Loading 🔄", quote=True)
-        driver.get(link)
-        photo = driver.find_element(By.CLASS_NAME, "ipsImage_thumbnailed").get_attribute("src")
-
-        try:
-            title = driver.find_element(By.XPATH, '//h1').text
-        except NoSuchElementException:
-            title = ""
-        heading = f"**{title}**\n"
-        await message.reply_photo(photo, caption=heading + caption, quote=True)
-        await txt.delete()
-
-    except Exception as e:
-        await txt.edit_text("Some Error Occurred, Try Again") 
