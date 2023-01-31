@@ -21,36 +21,36 @@ options.add_argument("--disable-infobars")
 driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH", '/usr/local/bin/chromedriver'), chrome_options=options)
 driver.maximize_window()
 
-@Client.on_message(filters.regex("index\.php\?/forum/topic"))
-async def link_regex(c, m):
+@Client.on_message(filters.regex("index\.php\?/forums/topic"))
+async def link_regex(c,m):
     try:
         link = str(m.text)
-        txt = await m.reply_text("Scrapping magnet link, Please Wait")
+        txt = await m.reply_text("Scrapping torrent link, Please Wait")
         driver.get(link)
         p = driver.find_element(By.CLASS_NAME, "ipsImage_thumbnailed").get_attribute("src")
-        magnet_link = driver.find_elements(By.CLASS_NAME, "ipsAttachLink_block")
+        torrent_link = driver.find_elements(By.CLASS_NAME, "ipsAttachLink_block")
         try:
             title = driver.find_element(By.XPATH, '//h1').text
         except NoSuchElementException:
             title = ""
         heading = f"**{title}**\n\n"
         msg = ""
-        for link in magnet_link:
+        for link in torrent_link:
             tor = link.get_attribute("href")
             text = link.text
             msg += f"**Name : {text}**\n**Link:** {tor}\n\n-\n\n"
         if msg == "":
-            await m.send_message(-1001847917098, "No Magnet links Found")
+            await m.send_message(-1001549256479, "No Torrents Found")
             await m.message.delete()
         elif msg != "":
             reply_text = f"{msg}"
-            await c.send_photo(-1001847917098, p, caption=heading)
-            await c.send_message(-1001847917098, reply_text)
+            await c.send_photo(-1001549256479, p, caption=heading)
+            await c.send_message(-1001549256479, reply_text)
             await txt.delete()
 
     except Exception as e:
         print(e)
-        await c.send_message(-1001847917098, 'Some error occurred')
+        await c.send_message(-1001549256479, 'Some error occurred')
         await txt.delete()
 
 @Client.on_message(filters.command('latest'))
