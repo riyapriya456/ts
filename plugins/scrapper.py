@@ -40,17 +40,17 @@ async def link_regex(c,m):
             text = link.text
             msg += f"**Name : {text}**\n**Link:** {tor}\n\n-\n\n"
         if msg == "":
-            await m.send_message(-1001549256479, "No Torrents Found")
+            await m.send_message(-1001686548984, "No Torrents Found")
             await m.message.delete()
         elif msg != "":
             reply_text = f"{msg}"
-            await c.send_photo(-1001549256479, p, caption=heading)
-            await c.send_message(-1001549256479, reply_text)
+            await c.send_photo(-1001686548984, p, caption=heading)
+            await c.send_message(-1001686548984, reply_text)
             await txt.delete()
 
     except Exception as e:
         print(e)
-        await c.send_message(-1001549256479, 'Some error occurred')
+        await c.send_message(-1001686548984, 'Some error occurred')
         await txt.delete()
 
 @Client.on_message(filters.command('latest'))
