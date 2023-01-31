@@ -1,4 +1,5 @@
 import os
+import aiohttp
 import asyncio
 import random
 import string
@@ -52,29 +53,31 @@ async def link_regex(c, m):
         await c.send_message(-1001847917098, 'Some error occurred')
         await txt.delete()
 
-async def send_screenshot(c):
-    channel = -1001847917098
-    while True:
-        txt = await c.send_message(channel, "Getting screenshot of latest movies of 1TamilMv")
-        N = 7
-        name = ''.join(random.choices(string.ascii_uppercase +
-                                      string.digits, k=N))
-        driver.get("https://www.1tamilmv.bond/")
-        photo = name + ".png"
-        driver.save_screenshot(photo)
+@Client.on_message(filters.command('latest'))
+async def ss(bot, message):
+    # Getting ss of tamilmv
+    txt = await bot.send_message(message.chat.id, "Getting screenshot of latest movies of 1TamilMv")
+    N = 7
+    name = ''.join(random.choices(string.ascii_uppercase +
+                                  string.digits, k=N))
+    driver.get("https://www.1tamilmv.bond/")
+    photo = name + ".png"
+    driver.save_screenshot(photo)
 
-        N = 7
-        name = ''.join(random.choices(string.ascii_uppercase +
-                                      string.digits, k=N))
-        driver.get("https://www.tamilblasters.guru/")
-        await txt.edit(text="Got Screenshot of 1TamilMv.autos. Now Getting screenshot of latest movies of TamilBlasters")
-        photo1 = name + ".png"
-        driver.save_screenshot(photo1)
-        await txt.delete()
+    # Getting ss of tamilblasters
+    N = 7
+    name = ''.join(random.choices(string.ascii_uppercase +
+                                  string.digits, k=N))
+    driver.get("https://www.tamilblasters.guru/")
+    await txt.edit(text="Got Screenshot of 1TamilMv. Now Getting screenshot of latest movies of TamilBlasters")
+    photo1 = name + ".png"
+    driver.save_screenshot(photo1)
+    await txt.delete()
 
-        await c.send_photo(channel, photo, caption="**Screenshot of latest movies of 1TamilMV.autos**")
-        await c.send_photo(channel, photo1, caption="**Screenshot of latest movies of TamilBlasters.kim**")
+    # sending captured ss to user
+    await message.reply_photo(photo, quote=True, caption="**Screenshot of latest movies of 1TamilMV**")
+    await message.reply_photo(photo1, quote=True, caption="**Screenshot of latest movies of TamilBlasters**")
 
-        os.remove(photo)
-        os.remove(photo1)
-        await asyncio.sleep(1800)  # sleep for 30 minutes
+    # deleting captured from db
+    os.remove(photo)
+    os.remove(photo1)
