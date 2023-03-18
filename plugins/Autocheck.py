@@ -10,8 +10,8 @@ urls = ["https://www.1tamilmv.tips/", "https://tamiblasters.social/"]
 page_contents = {}
 
 # The Telegram bot API token and chat ID
-bot_token = "your_bot_token"
-chat_id = "your_chat_id"
+bot_token = "5986546397:AAFH7xjmimXAKOY9Xttfr58w_vv11bEYDBE"
+chat_id = "5493968060"
 
 # The Telegram bot API endpoint for sending messages
 bot_api_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
