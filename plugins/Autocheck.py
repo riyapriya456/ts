@@ -4,7 +4,7 @@ import json
 import time
 
 # The URLs of the websites to be checked
-urls = ["https://www.1tamilmv.tips/", "https://tamiblasters.social/"]
+urls = ["https://www.1tamilmv.tips/", "https://tamilblasters.social/"]
 
 # The initial page contents
 page_contents = {}
@@ -31,17 +31,8 @@ while True:
         # Get the new content from the website
         new_content = str(soup)
 
-        # Check if there is new content on the website
+        # If there is new content, update the page_contents dictionary
         if url not in page_contents or new_content != page_contents[url]:
-            # If there is new content, send a notification to the user via Telegram bot
-            message = f"New content is available on {title}:\n{url}"
-            payload = {
-                "chat_id": chat_id,
-                "text": message
-            }
-            response = requests.post(bot_api_url, data=payload)
-
-            # Update the page contents
             page_contents[url] = new_content
 
     # Wait for some time before checking again
